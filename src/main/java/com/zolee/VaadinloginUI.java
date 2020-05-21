@@ -10,7 +10,6 @@ import com.vaadin.server.Page.UriFragmentChangedEvent;
 import com.vaadin.server.Page.UriFragmentChangedListener;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
-import com.vaadin.server.VaadinSession;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
@@ -20,8 +19,6 @@ import com.vaadin.ui.UI;
 @Theme("valo")
 @SpringUI
 public class VaadinloginUI extends UI {
-
-	private String currentKind;
 
 	@WebServlet(value = "/*", asyncSupported = true)
 	@VaadinServletConfiguration(productionMode = false, ui = VaadinloginUI.class)
