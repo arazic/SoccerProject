@@ -44,12 +44,14 @@ public class LoginPage extends VerticalLayout implements View {
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-				if(username.getValue().equals(password.getValue())){
+			    String userKind= authenticationTest(username, password);
+				if(userKind!="fail"){
 					VaadinSession.getCurrent().setAttribute("user", username.getValue());
-					getUI().getNavigator().addView(SecurePage.NAME, SecurePage.class);
-					getUI().getNavigator().addView(OtherSecurePage.NAME, OtherSecurePage.class);
-					getUI().getNavigator().addView(HomePage.NAME, HomePage.class);
-					Page.getCurrent().setUriFragment("!"+HomePage.NAME);
+                    VaadinSession.getCurrent().setAttribute("kind", userKind);
+//					getUI().getNavigator().addView(SecurePage.NAME, SecurePage.class);
+//					getUI().getNavigator().addView(OtherSecurePage.NAME, OtherSecurePage.class);
+//					getUI().getNavigator().addView(HomePage.NAME, HomePage.class);
+					Page.getCurrent().setUriFragment("!"+userKind);
 				}else{
 					Notification.show("Invalid credentials", Notification.Type.ERROR_MESSAGE);
 				}
@@ -62,8 +64,14 @@ public class LoginPage extends VerticalLayout implements View {
 		panel.setContent(content);
 		setComponentAlignment(panel, Alignment.MIDDLE_CENTER);
 	}
-	
-	@Override
+
+	//TODO: real Authentication test in authentication class
+    //TODO: supposed to check is exist in DB- if exist return type, if not return fail
+    private String authenticationTest(TextField username, PasswordField password) {
+        return "IFA";
+    }
+
+    @Override
 	public void enter(ViewChangeEvent event) {
 
 	}

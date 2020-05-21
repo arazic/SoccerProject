@@ -10,28 +10,12 @@ import com.vaadin.ui.VerticalLayout;
 public class HomePage extends VerticalLayout implements View {
     private static final long serialVersionUID = 1L;
     public static final String NAME = "Home";
-
-    // A feedback component
-    final Label selection = new Label("-");
+    private final Label selection = new Label("-");
 
     public  HomePage() {
         addComponent(selection);
         MenuBar barmenu = new MenuBar();
         addComponent(barmenu);
-
-//         MenuBar.MenuItem drinks = barmenu.addItem("Beverages", null, null);
-//         // Submenu item with a sub-submenu
-//         MenuBar.MenuItem hots = drinks.addItem("Hot", null, null);
-//         hots.addItem("Tea",
-//                 new ThemeResource("icons/tea-16px.png"), mycommand);
-//         hots.addItem("Coffee",
-//                 new ThemeResource("icons/coffee-16px.png"), mycommand);
-
-//        // Another submenu item with a sub-submenu
-//         MenuBar.MenuItem colds = drinks.addItem("Cold", null, null);
-//         colds.addItem("Milk", null, mycommand);
-//         colds.addItem("Weissbier", null, mycommand);
-
 
         // Another top-level item
         MenuBar.MenuItem login = barmenu.addItem("Login", null, mycommand);
