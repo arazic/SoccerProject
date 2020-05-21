@@ -1,33 +1,40 @@
 package com.zolee;
 
+import com.vaadin.ui.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.Page;
 import com.vaadin.server.VaadinSession;
-import com.vaadin.ui.Alignment;
-import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
-import com.vaadin.ui.FormLayout;
-import com.vaadin.ui.Notification;
-import com.vaadin.ui.Panel;
-import com.vaadin.ui.PasswordField;
-import com.vaadin.ui.TextField;
-import com.vaadin.ui.VerticalLayout;
 
 public class LoginPage extends VerticalLayout implements View {
 	private static final long serialVersionUID = 1L;
 	public static final String NAME = "";
 	private Authentication Auth;
-	
-	@Autowired
+    private final Label WELCOME ;
+
+
+    @Autowired
 	public void setAuth(Authentication tempAuth) {
 		Auth = tempAuth;
 	}
 
 	public LoginPage(){
+
+        MenuBar barmenu = new MenuBar();
+        addComponent(barmenu);
+
+        // regular nav
+        MenuBar.MenuItem login = barmenu.addItem("Login", null, mycommand);
+        MenuBar.MenuItem servs = barmenu.addItem("Services", null, null);
+        servs.addItem("Car Service", null, mycommand);
+
+        WELCOME = new Label("WELCOME TO OUR IFA!");
+        addComponent(WELCOME);
+
 		Panel panel = new Panel("Login");
 		panel.setSizeUndefined();
 		addComponent(panel);
@@ -48,9 +55,6 @@ public class LoginPage extends VerticalLayout implements View {
 				if(userKind!="fail"){
 					VaadinSession.getCurrent().setAttribute("user", username.getValue());
                     VaadinSession.getCurrent().setAttribute("kind", userKind);
-//					getUI().getNavigator().addView(SecurePage.NAME, SecurePage.class);
-//					getUI().getNavigator().addView(OtherSecurePage.NAME, OtherSecurePage.class);
-//					getUI().getNavigator().addView(HomePage.NAME, HomePage.class);
 					Page.getCurrent().setUriFragment("!"+userKind);
 				}else{
 					Notification.show("Invalid credentials", Notification.Type.ERROR_MESSAGE);
@@ -71,6 +75,16 @@ public class LoginPage extends VerticalLayout implements View {
         return "IFA";
     }
 
+    MenuBar.Command mycommand = new MenuBar.Command() {
+        public void menuSelected(MenuBar.MenuItem selectedItem) {
+            WELCOME.setValue("Ordered a " +
+                    selectedItem.getText() +
+                    " from menu.");
+
+            getUI().getNavigator().addView(selectedItem.getText(), LoginPage.class);
+            Page.getCurrent().setUriFragment("!"+selectedItem.getText());
+        }
+    };
     @Override
 	public void enter(ViewChangeEvent event) {
 

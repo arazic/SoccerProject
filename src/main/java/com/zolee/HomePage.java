@@ -6,14 +6,13 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.VerticalLayout;
 
-
 public class HomePage extends VerticalLayout implements View {
     private static final long serialVersionUID = 1L;
     public static final String NAME = "Home";
-    private final Label selection = new Label("-");
+    private final Label WELCOME ;
+
 
     public  HomePage() {
-        addComponent(selection);
         MenuBar barmenu = new MenuBar();
         addComponent(barmenu);
 
@@ -24,13 +23,14 @@ public class HomePage extends VerticalLayout implements View {
         // Yet another top-level item
         MenuBar.MenuItem servs = barmenu.addItem("Services", null, null);
         servs.addItem("Car Service", null, mycommand);
-
+        WELCOME = new Label("WELCOME TO Soccer game web!");
+        addComponent(WELCOME);
 
     }
     // Define a common menu command for all the menu items.
     MenuBar.Command mycommand = new MenuBar.Command() {
         public void menuSelected(MenuBar.MenuItem selectedItem) {
-            selection.setValue("Ordered a " +
+            WELCOME.setValue("Ordered a " +
                     selectedItem.getText() +
                     " from menu.");
 
