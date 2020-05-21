@@ -61,7 +61,6 @@ public class LoginPage extends VerticalLayout implements View {
 		content.setMargin(true);
 		panel.setContent(content);
 		setComponentAlignment(panel, Alignment.MIDDLE_CENTER);
-
 	}
 	
 	@Override
